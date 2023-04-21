@@ -1,7 +1,6 @@
 <?php
 namespace App\Utilities;
 
-use App\Models\Student;
 use Illuminate\Database\Capsule\Manager as DB;
 
 class Database
@@ -27,51 +26,4 @@ class Database
         $db->bootEloquent();
     }
 
-    public function index()
-    {
-        return Student::all();
-    }
-
-    public function show($id)
-    {
-        return Student::findOrFail($id);
-
-    }
-
-    public function store($request)
-    {
-        Student::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'birthday' => $request['birthday'],
-            'age' => $request['age']
-        ]);
-        header("location:/../../index.php");
-    }
-
-    public function edit($id)
-    {
-        return Student::findOrFail($id);
-    }
-
-    public function update($request)
-    {
-        
-        $student = Student::firstWhere('id', $request['id']);
-        $student->update(
-            [
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'birthday' => $request['birthday'],
-                'age' => $request['age']
-            ]
-        );
-        header("location:/../../show.php?id=".$request['id']);
-    }
-
-    public function destroy(int $id):void
-    {
-        Student::destroy($id);
-        header("location:/../../index.php");
-    }
 }
